@@ -16,6 +16,13 @@ app.get("/api/products", (req, resp)=>{
 
 app.put("/api/products/:id", (req, resp)=>{
   const ID = Number(req.params.id)
+  
+  let updateProduct = products.find(item => item.id === ID);
+  if(!updateProduct){
+    resp.status(404).send({ message: "Product not found!" })
+    return;
+  }
+  
   const product = req.body
   const { error } = schema.validate(product); 
 
@@ -23,12 +30,7 @@ app.put("/api/products/:id", (req, resp)=>{
     resp.status(400).send({ message: error.details[0].message })
     return;
   }
-
-  let updateProduct = products.find(item => item.id === ID);
-  if(!updateProduct){
-    resp.status(404).send({ message: "Product not found!" })
-    return;
-  }
+  
   updateProduct.name = product.name
   updateProduct.price = product.price
 
