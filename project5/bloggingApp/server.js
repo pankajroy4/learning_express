@@ -11,12 +11,6 @@ const schema = Joi.object({
   description: Joi.string().min(50).required(),
 });
 
-const updateSchema = Joi.object({
-  title: Joi.string().min(5),
-  url: Joi.string().uri(),
-  description: Joi.string().min(50),
-});
-
 function makeDataFolder(){
   const dirPath = path.join(__dirname, "data")
   if(!fs.existsSync(dirPath)){
@@ -83,7 +77,7 @@ app.get("/api/posts/:id",(req, resp)=>{
     resp.send(post)
   }
   else{
-    resp.status(404).send({ message: "Product not found!" })
+    resp.status(404).send({ message: "Post not found!" })
     return;
   }
 })
@@ -101,7 +95,35 @@ app.post("/api/posts", (req,resp)=>{
   posts.push(post)
   writePost(posts);
 
-  resp.status(201).send({ message: "Product received!", id: ID });
+  resp.status(201).send({ message: "Post received!", id: ID });
+})
+
+app.put("/api/posts/:id", (req, resp)=>{
+  const ID = Number(req.params.id)
+  let postToUpdate = req.body
+
+  let posts = readPosts();
+  const index = posts.findIndex(post => post.id === ID);
+
+  if (index === -1) {
+    resp.status(404).send({ message: 'Post not found!' });
+    return;
+  }
+
+  const { error } = schema.validate(postToUpdate);
+  if (error) {
+    resp.status(400).send({ message: error.details[0].message });
+    return;
+  }
+
+  let post = postFinder(ID)
+  post.url = postToUpdate.url 
+  post.title = postToUpdate.title
+  post.description = postToUpdate.description
+
+  posts[index] = post 
+  writePost(posts)
+  resp.status(200).send({ message: "Post updated successfully!", updated_post: post });
 })
 
 const server = app.listen(3000, ()=>{
