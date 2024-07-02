@@ -33,7 +33,7 @@ function makeDataFolder(){
 }
 
 function writePost(posts){
-  const filePath = path.join(__dirname, '/data/post.js');
+  const filePath = path.join(__dirname, '/data/post.json');
   const postsStr = JSON.stringify(posts);
   try {
     fs.writeFileSync(filePath, postsStr);
@@ -44,7 +44,7 @@ function writePost(posts){
 }
 
 function readPosts(){
-  filePath = __dirname  + "/data/post.js"
+  filePath = __dirname  + "/data/post.json"
   try{
     postsStr = fs.readFileSync(filePath, "utf-8")
     const postsObj = JSON.parse(postsStr);
@@ -67,14 +67,14 @@ makeDataFolder();
 
 app.get("/api/posts", (req, resp)=>{
   posts = readPosts();
-  resp.send(posts)
+  resp.send({message: "Posts fetched successfully", postsData: posts})
 })
 
 app.get("/api/posts/:id",(req, resp)=>{
   const ID = Number(req.params.id);
   post = postFinder(ID)
   if(post){
-    resp.send(post)
+    resp.send({message: "Post fetched successfully", postData: post})
   }
   else{
     resp.status(404).send({ message: "Post not found!" })
@@ -124,6 +124,29 @@ app.put("/api/posts/:id", (req, resp)=>{
   posts[index] = post 
   writePost(posts)
   resp.status(200).send({ message: "Post updated successfully!", updated_post: post });
+})
+
+app.delete("/api/posts/:id", (req, resp)=>{
+  const ID = Number(req.params.id)
+
+  let posts = readPosts();
+  const index = posts.findIndex(post => post.id === ID);
+
+  if (index !== -1) {
+    const deletedPost = posts[index];
+    posts.splice(index, 1);
+
+    writePost(posts);
+
+    resp.status(200).send({ 
+      message: `Post with id ${ID} deleted successfully.`,
+      deletedPost: deletedPost 
+    });
+
+    return;
+  }
+
+  resp.status(404).send({ message: `Post with id ${ID} not found.` });
 })
 
 const server = app.listen(3000, ()=>{
