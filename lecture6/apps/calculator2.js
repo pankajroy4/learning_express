@@ -24,20 +24,20 @@ app.post("/", (req, res) => {
 
 app.post("/conversion", (req, res) => {
   const amount = Number(req.body.amt)
-  const currency = req.body.sel
+  const currency = req.body.to
 
   if (isNaN(amount))
     return res.send("Invalid input. Please enter valid amount.");
 
   switch(currency){
     case "d":
-      res.send(`₹<b>${amount}</b> equals to $<b>${(amount/82.06).toFixed(2)}</b>`)
+      res.send(`<h1>After Conversion</h1> ₹<b>${amount}</b> equals to $<b>${(amount/82.06).toFixed(2)}</b>`)
       break;
     case "p":
-      res.send(`₹<b>${amount}</b> equals to £<b>${(amount/104.89).toFixed(2)}</b>`)
+      res.send(`<h1>After Conversion</h1> ₹<b>${amount}</b> equals to £<b>${(amount/104.89).toFixed(2)}</b>`)
       break;
     case "e":
-      res.send(`₹<b>${amount}</b> equals to €<b>${(amount/89.55).toFixed(2)}</b>`)
+      res.send(`<h1>After Conversion</h1> ₹<b>${amount}</b> equals to €<b>${(amount/89.55).toFixed(2)}</b>`)
       break;
     default:
       res.send("Unknown currency!")
