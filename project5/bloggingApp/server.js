@@ -33,7 +33,7 @@ function makeDataFolder(){
 }
 
 function writePost(posts){
-  const filePath = path.join(__dirname, '/data/post.json');
+  const filePath = path.join(__dirname, '/data/posts.json');
   const postsStr = JSON.stringify(posts);
   try {
     fs.writeFileSync(filePath, postsStr);
@@ -44,8 +44,8 @@ function writePost(posts){
 }
 
 function readPosts(){
-  filePath = __dirname  + "/data/post.json"
   try{
+    filePath = __dirname  + "/data/posts.json"
     postsStr = fs.readFileSync(filePath, "utf-8")
     const postsObj = JSON.parse(postsStr);
     return postsObj
