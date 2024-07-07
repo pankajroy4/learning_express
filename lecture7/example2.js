@@ -62,7 +62,142 @@ const server = app.listen(3000, () => {
   );
 });
 
+======================================================
+Run middleware for a specific route i.e URL:
+=====================================================
+We can execute an Express middleware only for a specific route.
+To do this we pass a route argument before the middleware function to the app.use() method.
 
-Time: 36 minutes.
+  Syntax:
+    app.use(“route i.e URL”, name_of_middleware_fn);
+
+  Example:
+    const express = require("express");
+    const app = express();
+
+    const logger1 = (req, resp, next) => {
+      console.log("Logger1 executed..");
+      next();
+    };
+
+    const logger2 = (req, resp, next) => {
+      console.log("Logger2 executed..");
+      next();
+    };
+
+    app.use(logger1);
+    app.use("/products", logger2);
+
+    app.get("/", (req, resp) => {
+      resp.send("You sent a GET request at /...");
+    });
+
+    app.post("/", (req, resp) => {
+      resp.send("You sent a POST request at /...");
+    });
+
+    app.get("/products", (req, resp) => {
+      resp.send("You sent a GET request  at /products...");
+    });
+
+    app.post("/products", (req, resp) => {
+      resp.send("You sent a POST request  at /products...");
+    });
+
+    const server = app.listen(3000, () => {
+      console.log(
+        `Server started and listening at http://localhost:${server.address().port}`
+      );
+    });
+
+  NOTE:
+    Here logger1 will execute on each route whether GET or POST or DELETE or PUT
+    but logger2 will execute only when route is for “/products” whether GET or POST or DELETE or PUT
+
+==============================================================
+Run middleware for a specific http method to a specific route:
+==============================================================
+When we pass the middleware function to app.use() method then it runs for EVERY HTTP METHOD .
+
+However we can execute an Express middleware only for a specific HTTP method with s[ecific route also.
+
+Till now, we register the middleware with app.use() .
+If we want to execute a middleware to a specific HTPP method with specific route, then we register the middleware with the specific HTTP method:
+
+So:
+  To do this we pass the middleware function to that method’s route handler instead of use() method
+    Syntax:
+      app.<http_method>(“route_i.e_url”, middleware_fun1, middleware_fun2..,callback_i.e_route_handler);
+
+  Example:
+    const express = require("express");
+    const app = express();
+
+    const logger = (req, resp, next) => {
+      console.log("Logger executed..");
+      next();
+    };
+
+    //Here We register with HTTP method:
+    app.get("/", logger, (req, resp) => {
+      resp.send("You sent a GET request at /...");
+    });
+
+    app.post("/", (req, resp) => {
+      resp.send("You sent a POST request at /...");
+    });
+
+    app.get("/products", (req, resp) => {
+      resp.send("You sent a GET request  at /products...");
+    });
+
+    app.post("/products", (req, resp) => {
+      resp.send("You sent a POST request  at /products...");
+    });
+
+    const server = app.listen(3000, () => {
+      console.log(
+        `Server started and listening at http://localhost:${server.address().port}`
+      );
+    });
+
+  Here the middleware logger will execute only when request is GET and at url /.
+
+Example:
+    const express = require("express");
+    const app = express();
+    const products = require("./products.js");
+
+    app.use(express.json());
+
+    const checkForJson = (req, resp, next) => {
+      console.log("Middleware executed..")
+      if (req.headers["content-type"] !== "application/json") {
+        resp.status(400).send({ message: "Server requires JSON object for POST" });
+        return;
+      }
+      next();
+    };
+
+    app.get("/api/products", (req, resp) => {
+        console.log("GET route executed....");
+        resp.send(products);
+    });
+
+    app.post("/api/products", checkForJson, (req, resp) => {
+      console.log("POST route executed....")
+      const ID = 100 + products.length + 1;
+      const newProduct = { id: ID, ...req.body };
+
+      products.push(newProduct);
+
+      resp.send({ message: "Product received!", id: ID });
+    });
+
+    const server = app.listen(3000, () => {
+      console.log(
+        `Server started and listening at http://localhost:${server.address().port}`
+      );
+    });
 
 */ 
