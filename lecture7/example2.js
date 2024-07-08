@@ -119,10 +119,10 @@ Run middleware for a specific http method to a specific route:
 ==============================================================
 When we pass the middleware function to app.use() method then it runs for EVERY HTTP METHOD .
 
-However we can execute an Express middleware only for a specific HTTP method with s[ecific route also.
+However we can execute an Express middleware only for a specific HTTP method with specific route also.
 
 Till now, we register the middleware with app.use() .
-If we want to execute a middleware to a specific HTPP method with specific route, then we register the middleware with the specific HTTP method:
+If we want to execute a middleware to a specific HTTP method with specific route, then we register the middleware with the specific HTTP method:
 
 So:
   To do this we pass the middleware function to that method’s route handler instead of use() method
