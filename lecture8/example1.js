@@ -124,5 +124,88 @@ What formats can we pass ?
     });
 
 
-Time: 46 minutes
+Customizing the predefined formats:
+======================================
+  morgan allows us to pass our own string as argument with placeholders like :method , :url,  :status to fill log with actual data
+  There are numerous placeholders available. We can check this on npm website.
+
+  example:
+      const express = require("express")
+      const morgan = require("morgan")
+
+      const app = express();
+      const logger = morgan("A new :method request arrived at :url and response was :status")
+
+      app.use(logger)
+
+      app.get("/products", (req, resp) => {
+        resp.send("You sent a GET request  at /products...");
+      });
+
+      app.post("/products", (req, resp) => {
+        resp.send("You sent a POST request  at /products...");
+      });
+
+      const server = app.listen(3000, () => {
+        console.log(
+          `Server started and listening at http://localhost:${server.address().port}`
+        );
+      });
+
+
+   Terminal output:
+      A new GET request arrived at /products and response was 200
+
+
+===============================
+What is helmet ?
+===============================
+  Helmet is a middleware that helps us secure our Node.js application by setting several HTTP headers. 
+  It helps to protect Node.js/Express apps from common security threats such as Cross-Site Scripting (XSS) and click-jacking attacks.
+
+  Helmet is particularly useful because Express applications do not come with security HTTP headers out of the box. 
+
+  It secure the HTTP headers. As we know, when request arrived then some headers also received.
+  In similar manner, when response is sent back, then also headers are sent by the server.
+  Headers sent by server contains some information about sever like tech stack used in backend. Generally it is not considered good practice to expose tech stack.
+  When we use helmet, then these information not sent in headers to the client.
+  It also adds some headers property by itself
+
+  Installing & Using helmet:
+  ----------------------------
+  We can install the helmet by using the following command inside our application folder:
+        npm install helmet
+
+  To use helmet we can simply load it , then invoke an instance and pass it as an argument in the .use() method call before our HTTP requests.
+
+  const helmet =  require("helmet" returns a function so we have to call it like:
+    app.use(helmet())
+
+  example:
+      const express = require("express");
+      const morgan = require("morgan");
+      const helmet = require("helmet");
+
+      const app = express();
+      const logger = morgan(
+        "A new :method request arrived at :url and response was :status"
+      );
+
+      app.use(helmet());
+      app.use(logger);
+
+      app.get("/products", (req, resp) => {
+        resp.send("You sent a GET request  at /products...");
+      });
+
+      app.post("/products", (req, resp) => {
+        resp.send("You sent a POST request  at /products...");
+      });
+
+      const server = app.listen(3000, () => {
+        console.log(
+          `Server started and listening at http://localhost:${server.address().port}`
+        );
+      });
+
 */ 

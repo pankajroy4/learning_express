@@ -1,0 +1,27 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/dum_image.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; 
+  background-position: center; 
+  text-align: center;
+
+}
+
+h1{
+  padding-top: 80px;
+  color:crimson;
+}
+
+body img{
+  height: 300px;
+  width: 300px;
+}
