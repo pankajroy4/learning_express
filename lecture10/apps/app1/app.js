@@ -5,7 +5,15 @@ app.set("view-engine", "ejs")
 app.use(express.static("public"))
 
 app.get("/", (req, resp)=>{
-  resp.render("partials/header.ejs")
+  resp.render("pages/home.ejs")
+})
+
+app.get("/about", (req, resp)=>{
+  resp.render("pages/about.ejs")
+})
+
+app.get("/contact", (req, resp)=>{
+  resp.render("pages/contact.ejs");
 })
 
 const server = app.listen(3000, () => {

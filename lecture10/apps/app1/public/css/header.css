@@ -1,5 +1,5 @@
 a{
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 ul{
@@ -8,8 +8,4 @@ ul{
 
 ul li{
   display: inline;
-}
-
-body{
-  background-color: green;
 }
