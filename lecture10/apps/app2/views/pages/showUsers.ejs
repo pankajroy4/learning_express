@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home page</title>
+    <link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+  <%- include("../partials/header.ejs") %>
+  <h1>Users List</h1>
+  <table border="1px solid black;">
+    <tr>
+      <th>UserName</th>
+      <th>Email Id</th>
+    </tr>
+    <% users.forEach((u)=>{ %>
+      <tr>
+        <td> <%= u.name%> </td>
+        <td> <%= u.email%> </td>
+      </tr>
+    <%})%>
+  </table>
+
+  <%- include("../partials/footer.ejs") %>
+</body>
+</html>
