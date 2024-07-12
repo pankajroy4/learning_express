@@ -1,0 +1,15 @@
+a{
+  text-decoration: none;
+}
+
+ul{
+  list-style-type: none;
+}
+
+ul li{
+  display: inline;
+}
+
+body{
+  background-color: green;
+}
