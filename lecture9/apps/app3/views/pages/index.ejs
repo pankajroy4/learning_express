@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View template Engine</title>
+  </head>
+  <body>
+    <h1>Adding JS In EJS</h1>
+    <% 
+        let a = 10; 
+        let b = 9; 
+    %>
+
+    <% if (a%2 == 0) { %>
+      <p> <%= a %> is even </p>
+    <%}else {%>
+      <p> <%= a %> is odd </p>
+    <%}%>
+
+    <% if (b%2 == 0) { %>
+      <p> <%= b %> is even </p>
+    <%}else {%>
+      <p> <%= b %> is odd </p>
+    <%}%>
+
+  </body>
+</html>

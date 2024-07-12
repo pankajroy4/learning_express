@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View template Engine</title>
+  </head>
+
+  <body>
+    <h1>Adding JS In EJS</h1>
+    <% 
+        let a = 10; 
+        let b = 20; 
+        let c = a+b; 
+        let d = 5;
+      %>
+    <p>Sum of <%= a %> and <%= b %> is <%= c %> </p>
+    <p>Cube of <%= d %> is <%= Math.pow(d, 3)%> </p>
+  </body>
+</html>

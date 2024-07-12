@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View template Engine</title>
+  </head>
+  <body>
+    <h1>Passing Data to EJS</h1>
+
+    <% persons.forEach((p)=>{ %>
+        <p> Name: <%= p.name%> </p>
+        <p> City: <%= p.city%> </p>
+        <p> Phone: <%= p.phone%> </p>
+        <hr/>
+      <%})%>
+  </body>
+</html>

@@ -48,8 +48,83 @@ Now in the JS file take following steps:
   Note that we do not have to call require() for EJS as Express will automatically load it.
 
   2: Finally from our route handler we have to call the method render() of response object passing it the .ejs filepath/name, required variables, object etc and Express will render the file and send the output to client.
+      resp.render("path_of_ejs_file", object)
+
+    Note: We can pass variables in second argument.
+          But we have to pass it as object.
+          Suppose, we have a variable:
+            let str = "John";
+          To pass it to ejs file we have to pass it as object:
+             resp.render("path_of_ejs_file", {name: str})
+          
+        In ejs file we can access str value like:
+           <p> Hello <%= name %> , welcome to EJS learning.</p>
+
+    *So, 2nd argument of render() method must be an object.
+    Even we have to pass a variable, we have to pass it as object
 
 Adding js in ejs:
 ===================
-Time: 29 minutes
+To add JS code in EJS , there are 3 major tags that we will need to understand:
+
+1: Expression tag:  <%= %>
+  <%=  some expression %>
+  Called expression-tag and used to embed code that is supposed to return some output,  like the result of an expression/computation.
+
+  Example:
+    <%= 10+20 %>
+    <%= Math.pow(2,3) %>
+
+2: Scriptlet tag: <% %>
+  <%  some code %>
+  This is used to embed javascript codes that do not return output e.g control flow, conditionals, variable declaration, etc
+
+  Example:
+    <% let a=10; %>
+    <% if(a%2==0) %>
+    <% for(let i=1;i<=5;i++) %>
+
+3: Partial include tag: <%- %>
+    <%- include("path of other partials") %>
+    This is used to add the partial(reusable codes) to our main ejs files.
+
+    Example:
+      <%- include("../partials/menu.ejs") %>
+
+==================================================
+Passing data to ejs file from app.js file
+==================================================
+As we know we can pass data to ejs by passing second argument to resp.render() method.
+
+This second argument must be an object, which will be accessible in the EJS template file
+  Example1:
+    Suppose, we have an object:
+      let person = {name: "John", age: 25}
+    To pass it to ejs file we have to pass it as object:
+        resp.render("path_of_ejs_file", {person_details: person})
+    
+    In ejs file we can access person object like:
+      <p> Hello <%= person_details.name %> </p>
+      <p> your age is <%= person_details.age %> </p>
+
+  Example2:
+   Suppose, we have an array of objects:
+    let persons = [
+        {name: "Sachin", city: "Bhopal", phone: 9155368245},
+        {name: "Mohan", city: "Indore", phone:  8652437852},
+        {name: "Pankaj", city: "Patna", phone: 7536124586},
+      ]
+    
+    To pass it to ejs file we have to pass it as object:
+      resp.render("path_of_ejs_file", {persons: persons})
+    
+    In ejs file we can access persons array of objects like:
+
+      <% persons.forEach((p)=>{ %>
+        <p> Name: <%= p.name%> </p>
+        <p> City: <%= p.city%> </p>
+        <p> Phone: <%= p.phone%> </p>
+        <hr/>
+      <%})%>
+
 */
