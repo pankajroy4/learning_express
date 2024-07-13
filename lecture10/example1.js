@@ -17,6 +17,5 @@ To use partials in EJS, we take following steps:
   example:
       <%- include("../partials/header.ejs") %>
     See example folder app1
-  
-  Time 41 minutes
+
 */
