@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>add users</title>
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <%- include("../partials/header.ejs") %>
 
   <form action="/" method="post">
-    <label for="uname">User Name:</label><br/>
-    <input type="text" name ="uname" ><br/><br/>
-    <label for="email">Email:</label><br/>
-    <input type="email" name ="email"><br/><br/>
+    <label for="uname">User Name:</label>
+    <input type="text" name ="uname" autofocus >
+    <label for="email">Email:</label>
+    <input type="email" name ="email">
     <button type="submit">Add User</button>
   </form>
 

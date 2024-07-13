@@ -18,7 +18,9 @@ app.post("/", (req, resp) => {
   let name = req.body.uname;
   let email = req.body.email;
   if (name && email) users.push({ name: name, email: email });
-  resp.render("pages/showUsers.ejs", { users: users });
+
+  // resp.render("pages/showUsers.ejs", { users: users });
+  resp.redirect("/users");
 });
 
 app.get("/users", (req, resp) => {
