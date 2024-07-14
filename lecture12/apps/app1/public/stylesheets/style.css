@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none !important;
+}
+
+body {
+  background-color: rgb(238, 191, 191);
+}
+
+.error {
+  background-color: rgb(224, 97, 97);
+  padding: 10px;
+}
+
+.table th,
+.table td {
+  background-color: rgb(238, 191, 191);
+}
+
+.table thead tr th {
+  background-color: rgb(199, 137, 137);
+}
+
+tbody tr:nth-child(even) td {
+  background-color: rgb(199, 137, 137);
+}
+
+tbody tr:hover td {
+  background-color: rgb(196, 104, 104);
+  cursor: pointer;
+}
