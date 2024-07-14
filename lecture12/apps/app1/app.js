@@ -3,6 +3,7 @@ const mysql = require("mysql");
 const app = express();
 app.use(express.json());
 app.use(express.static("public"))
+app.set("view engine","ejs")
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -22,10 +23,10 @@ app.get("/employees", (req, resp) => {
   const sqlQuery = "select * from employee";
   connection.query(sqlQuery, (err, result) => {
     if (err) {
-      resp.render("error.ejs",{ error: err.sqlMessage });
+      resp.render("pages/result.ejs",{status: false, error: err.sqlMessage });
       return;
     }
-    resp.render("users.ejs",{ total: result.length, data: result });
+    resp.render("pages/result.ejs", { status: true, total: result.length, data: result });
     return;
   });
 });
