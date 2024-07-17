@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>add Employee</title>
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <%- include("../partials/header.ejs") %>
+  <div class="container">
+    <h5 style="margin-left: 33%; margin-top:2rem;">Add new Employee</h2>
+    <form action="/" method="post">
+      <label for="empName">Emp Name:</label>
+      <input type="text" name ="empName" autofocus >
+      <label for="email">Emp Salaray:</label>
+      <input type="text" name ="empSal">
+      <button type="submit">Add Employee</button>
+    </form>
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+</body>
+</html>
