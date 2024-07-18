@@ -17,24 +17,22 @@ connection.connect((err) => {
   console.log("Connected to DB Successfully!");
 });
 
-app.post("/employees", (req, resp) => {
-  let {id, name, salary} = req.body;
-  id = Number(id);
-  salary = Number(salary);
+app.delete("/employees/:id", (req, resp) => {
+  let id = Number(req.params.id);
 
-  const sqlQuery = "insert into employee values(?, ?,?)";
-  connection.query(sqlQuery, [name, id, salary], (err, result) => {
+  const sqlQuery = "delete from employee where id = ?";
+  connection.query(sqlQuery, [id], (err, result) => {
     if (err) {
       resp.status(500).send({ error: err.sqlMessage });
       return;
     } else if (result.affectedRows > 1) {
       resp.status(400).send({
-        message: `Can not insert record!`,
+        message: `Record of id ${id} not found!`,
       });
       return;
     }
 
-    resp.send({ message: "Employee added!", id: id });
+    resp.send({ message: "Employee Deleted!", id: id });
     return;
   });
 });
